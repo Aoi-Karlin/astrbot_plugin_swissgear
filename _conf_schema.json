@@ -1,57 +1,20 @@
 {
-    "enable_white_list_groups": {
-        "description": "启用群聊白名单",
-        "type": "bool",
-        "hint": "开启后只有在白名单的群聊才启用点赞功能",
-        "default": false
-    },
-    "white_list_groups": {
-        "description": "群聊白名单",
-        "type": "list",
-        "hint": "只有在白名单的群聊才启用点赞功能, 若没填写则默认全部群聊可用",
-        "default": []
-    },
-    "subscribed_users": {
-        "description": "自动点赞的用户",
-        "type": "list",
-        "hint": "此变量用来存储自动点赞用户的Q号",
-        "default": []
-    },
-    "blacklist_users": {
-        "description": "黑名单用户",
-        "type": "list",
-        "hint": "禁止使用此插件点赞的用户Q号，优先级最高",
-        "default": []
-    },
-    "zanwo_date": {
-        "description": "点赞日期",
-        "type": "string",
-        "hint": "如果检测到当前日期与点赞日期不同时，则触发自动点赞，并更新点赞日期",
-        "invisible": true,
-        "default": "2025-01-01"
-    },
-    "auto_like_enabled": {
-        "description": "启用自动点赞",
-        "type": "bool",
-        "hint": "是否启用每日自动点赞功能",
-        "default": true
-    },
-    "likes_per_user": {
-        "description": "每人点赞次数",
-        "type": "int",
-        "hint": "给每个用户点赞的次数",
-        "default": 20
-    },
-    "notify_groups": {
-        "description": "通知群组列表",
-        "type": "list",
-        "hint": "自动点赞开始和完成时会发送通知到这些群组",
-        "default": []
-    },
-    "notify_delay": {
-        "description": "通知发送延迟",
-        "type": "int",
-        "hint": "发送群通知之间的延迟时间（秒），用于防止消息发送过快",
-        "default": 1
-    }
+  "filter_brackets": {
+    "type": "list",
+    "description": "需要过滤的括号类型",
+    "hint": "列表中每一项为一对括号，将删除这对括号及其包裹的内容（支持跨行）。每项须为两个字符：前为左括号，后为右括号，如 （）、()、【】、[]、「」。默认含全角（）和半角()。涉及编程/数学场景建议移除半角 () 以免误删代码。",
+    "default": ["（）", "()"]
+  },
+  "collapse_blank_lines": {
+    "type": "bool",
+    "description": "压缩多余空行/换行",
+    "hint": "去除行尾空白并将连续多个换行压缩，同时清理首尾空白。",
+    "default": true
+  },
+  "max_consecutive_newlines": {
+    "type": "int",
+    "description": "允许的最大连续换行数",
+    "hint": "开启压缩后，超过该数量的连续换行会被压缩到此值。1 表示不允许出现空行。",
+    "default": 1
+  }
 }
