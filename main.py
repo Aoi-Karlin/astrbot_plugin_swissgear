@@ -5,12 +5,33 @@ from astrbot.api.event import AstrMessageEvent, filter
 from astrbot.api.provider import LLMResponse
 from astrbot.api.star import Context, Star, register
 
+# Covers the main Unicode emoji blocks; compiled once at import time.
+_EMOJI_RE = re.compile(
+    "["
+    "\U0001F600-\U0001F64F"
+    "\U0001F300-\U0001F5FF"
+    "\U0001F680-\U0001F6FF"
+    "\U0001F700-\U0001F7FF"
+    "\U0001F780-\U0001F8FF"
+    "\U0001F900-\U0001F9FF"
+    "\U0001FA00-\U0001FAFF"
+    "\U00002702-\U000027B0"
+    "\U000024C2-\U0001F251"
+    "☀-⛿"
+    "✀-➿"
+    "︀-️"
+    "‍"
+    "⃣"
+    "]+",
+    flags=re.UNICODE,
+)
+
 
 @register(
     "astrbot_plugin_swissgear",
     "Abyss",
     "在 LLM 回复发送前清理多余换行与全/半角括号包裹的动作描述",
-    "v1.0.0",
+    "v1.1.0",
 )
 class SwissGearPlugin(Star):
     """瑞士军刀式回复清理插件。
@@ -62,7 +83,11 @@ class SwissGearPlugin(Star):
         for pat in self._bracket_patterns:
             text = pat.sub("", text)
 
-        # 2) 压缩多余空白与换行
+        # 2) 删除 Emoji
+        if self.config.get("filter_emoji", False):
+            text = _EMOJI_RE.sub("", text)
+
+        # 3) 压缩多余空白与换行
         if self.config.get("collapse_blank_lines", True):
             max_nl = int(self.config.get("max_consecutive_newlines", 1) or 1)
             if max_nl < 1:

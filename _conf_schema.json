@@ -16,5 +16,11 @@
     "description": "允许的最大连续换行数",
     "hint": "开启压缩后，超过该数量的连续换行会被压缩到此值。1 表示不允许出现空行。",
     "default": 1
+  },
+  "filter_emoji": {
+    "type": "bool",
+    "description": "删除 LLM 回复中的 Emoji 表情符号",
+    "hint": "开启后将移除所有 Emoji 字符（如 😊🎉🙏 等）。不影响普通标点、汉字与字母。",
+    "default": false
   }
 }

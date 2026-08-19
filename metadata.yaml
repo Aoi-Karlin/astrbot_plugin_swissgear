@@ -1,5 +1,5 @@
 name: astrbot_plugin_swissgear
 desc: 在 LLM 回复发送前清理多余换行与全/半角括号包裹的动作描述，针对 DeepSeek 等指令遵循较弱的模型。
-version: v1.0.0
+version: v1.1.0
 author: Azured
 repo: "https://github.com/Aoi-Karlin/Astrbot_plugin_swissgear"
