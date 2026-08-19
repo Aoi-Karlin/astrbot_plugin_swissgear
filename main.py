@@ -118,10 +118,19 @@ class SwissGearPlugin(Star):
 
             if cleaned != original:
                 resp.completion_text = cleaned
-                logger.debug(
-                    "[swissgear] 已清理 LLM 回复："
-                    f"原长度={len(original)} -> 新长度={len(cleaned)}"
-                )
+                reduction_rate = (len(original) - len(cleaned)) / len(original) if len(original) > 0 else 0
+
+                if reduction_rate >= 0.9:
+                    logger.warning(
+                        f"[swissgear] 极端清理（减少 {reduction_rate*100:.1f}%）："
+                        f"原长度={len(original)} -> 新长度={len(cleaned)}\n"
+                        f"原文：{original!r}"
+                    )
+                else:
+                    logger.info(
+                        f"[swissgear] 已清理 LLM 回复："
+                        f"原长度={len(original)} -> 新长度={len(cleaned)}"
+                    )
         except Exception as e:
             # 单条消息处理失败不应影响整体流程
             logger.error(f"[swissgear] 清理 LLM 回复时出错：{e}")
